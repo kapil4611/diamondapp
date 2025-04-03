@@ -1,6 +1,6 @@
-# Assesment
+# Diamond Application
 
-A Flutter Diamond application.
+A Flutter Diamond application allow user to see different diamond products with their details.
 
 ## About App
 
