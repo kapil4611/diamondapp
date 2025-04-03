@@ -82,8 +82,9 @@ class _HomeState extends State<Home> {
                           var item = successState.products[index];
                           return ListTile(
                             leading: Text((index + 1).toString()),
-                            title: Text(item.lotId.toString()),
-                            subtitle: Text(item.fluorescence),
+                            title: Text("Lot ID: ${item.lotId}"),
+                            subtitle:
+                                Text("Fluorescence: ${item.fluorescence}"),
                             trailing: IconButton(
                               onPressed: () {
                                 homeBloc.add(HomeProductCartButtonClickedEvent(
