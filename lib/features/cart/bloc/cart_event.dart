@@ -1,8 +1,3 @@
-// part of 'cart_bloc.dart';
-
-// @immutable
-// sealed class CartEvent {}
-
 part of 'cart_bloc.dart';
 
 @immutable
