@@ -1,5 +1,4 @@
 import 'package:assesment/features/cart/bloc/cart_bloc.dart';
-import 'package:assesment/features/home/models/product_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -38,20 +37,7 @@ class _CartState extends State<Cart> {
             case CartSuccessState:
               final successState = state as CartSuccessState;
               var sp = successState.cartItems;
-              var totalPrice = 0.0;
-              var totalCarat = 0.0;
-              var totalDiscount = 0.0;
-              var avgPrice = 0.0;
-              var avgDiscount = 0.0;
-              var totalDiamond = sp.length;
-
-              for (ProductDataModel i in sp) {
-                totalPrice += i.finalAmount;
-                totalCarat += i.carat;
-                totalDiscount += i.discount;
-              }
-              avgPrice = totalPrice / totalDiamond;
-              avgDiscount = totalDiscount / totalDiamond;
+              var summaryData = successState.summarymodel;
 
               return Column(
                 children: [
@@ -79,15 +65,13 @@ class _CartState extends State<Cart> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Total diamond: $totalDiamond",
+                          Text("Total carat: ${summaryData.totalCarat}",
                               style: TextStyle(fontSize: 20)),
-                          Text("Total carat: $totalCarat",
+                          Text("Total price: ${summaryData.totalPrice}",
                               style: TextStyle(fontSize: 20)),
-                          Text("Total price: $totalPrice",
+                          Text("Average price: ${summaryData.avgPrice}",
                               style: TextStyle(fontSize: 20)),
-                          Text("Average price: $avgPrice",
-                              style: TextStyle(fontSize: 20)),
-                          Text("Average discount: $avgDiscount",
+                          Text("Average discount: ${summaryData.avgDiscount}",
                               style: TextStyle(fontSize: 20)),
                         ],
                       ),
