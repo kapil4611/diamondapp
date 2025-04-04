@@ -18,6 +18,11 @@ class SearchEvent extends HomeEvent {
   SearchEvent({required this.query});
 }
 
+class FilterEvent extends HomeEvent {
+  final String property;
+  FilterEvent({required this.property});
+}
+
 // navigation event
 
 class HomeCartButtonNavigateEvent extends HomeEvent {}

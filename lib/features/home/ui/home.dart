@@ -12,6 +12,9 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final List<String> items = ['EX', 'G', 'VG', 'All'];
+  String? selectedItem;
+
   @override
   void initState() {
     homeBloc.add(HomeInitialEvent());
@@ -64,15 +67,37 @@ class _HomeState extends State<Home> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: TextField(
-                        onChanged: filterSearch,
-                        decoration: InputDecoration(
-                          hintText: 'Type Fluorescence to filter',
-                          prefixIcon: Icon(Icons.search),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: TextField(
+                              onChanged: filterSearch,
+                              decoration: InputDecoration(
+                                hintText: 'Type Fluorescence to filter',
+                                prefixIcon: Icon(Icons.search),
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)),
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
+                          SizedBox(width: 10),
+                          DropdownButton<String>(
+                            hint: const Text('Symmetry'),
+                            value: selectedItem,
+                            items: items.map((item) {
+                              return DropdownMenuItem<String>(
+                                value: item,
+                                child: Text(item),
+                              );
+                            }).toList(),
+                            onChanged: (value) {
+                              homeBloc.add(FilterEvent(property: value!));
+                              selectedItem = value;
+                            },
+                          ),
+                        ],
                       ),
                     ),
                     Expanded(
@@ -81,7 +106,8 @@ class _HomeState extends State<Home> {
                         itemBuilder: (context, index) {
                           var item = successState.products[index];
                           return ListTile(
-                            leading: Text((index + 1).toString()),
+                            // leading: Text((index + 1).toString()),
+                            leading: Text(item.symmetry),
                             title: Text("Lot ID: ${item.lotId}"),
                             subtitle:
                                 Text("Fluorescence: ${item.fluorescence}"),

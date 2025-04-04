@@ -26,6 +26,18 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           .toList();
       emit(HomeLoadedSuccessState(products: filteredProducts));
     });
+    on<FilterEvent>((event, emit) {
+      List<ProductDataModel> productModels = DiamondData.diamondProducts
+          .map((e) => ProductDataModel.fromJson(e))
+          .toList();
+      var filterProducts = event.property == "All"
+          ? productModels
+          : productModels
+              .where((item) =>
+                  item.symmetry.toLowerCase() == event.property.toLowerCase())
+              .toList();
+      emit(HomeLoadedSuccessState(products: filterProducts));
+    });
   }
 
   FutureOr<void> homeInitialEvent(
